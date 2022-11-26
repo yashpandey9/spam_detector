@@ -1,7 +1,9 @@
 const user_model = require("../model/user");
+const encrypt_password_service =require("../utilities/password_services").hash_password;
 
 const register_user_service=async(name, phone_no, password, email)=>{
     try{
+        const encrypted_password = await encrypt_password_service(password);
         let user_data = await user_model.findOne({
             mobile_no : phone_no
         });
@@ -13,7 +15,7 @@ const register_user_service=async(name, phone_no, password, email)=>{
         user_data = {
             name,
             mobile_no : phone_no,
-            pass_hash : password
+            pass_hash : encrypted_password
         };
 
         if(email)
