@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Mongo_URI = "mongodb://localhost:27017";
+const Mongo_URI = "mongodb://localhost:27017/truecaller";
 
 const connectDB = async() => {
     try{
@@ -14,5 +14,9 @@ const connectDB = async() => {
         process.exit(1);
     }
 }
+
+mongoose.connection.on('disconnected', () => {
+    console.log('Mongoose connection is disconnected...')
+})
 
 module.exports = connectDB;

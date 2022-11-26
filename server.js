@@ -1,14 +1,17 @@
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
 const connectionDB = require('./database/connection');
+const routes = require('./router/routes');
 
 //connecting MongoDB
 connectionDB();
 
-mongoose.connection.on('disconnected', () => {
-    console.log('Mongoose connection is disconnected...')
-})
+//parsing
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+
+//routing
+app.use("/api",routes);
 
 //printing the process id 
 const server = app.listen(process.env.PORT || 3000, () => {
