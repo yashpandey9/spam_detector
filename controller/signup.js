@@ -1,4 +1,4 @@
-const User = require('../model/user');
+const register_user_service = require("../services/user_register");
 
 const create = async(req, res) => {
     try{
@@ -7,27 +7,9 @@ const create = async(req, res) => {
         const email_id = req.body.email;
         const password = req.body.password;
 
-        if(!name|| !phone_no||!password){
-            throw new Error("name, phone_no and password are mandatory params");
-        }
+        const response = await register_user_service(name,phone_no,password, email_id);
         
-        const new_user_data = {
-            name,
-            mobile_no : phone_no,
-            pass_hash : password
-        }
-
-        if(email_id)
-            new_user_data.email = email_id;
-
-        const newUser = new User(new_user_data);
-        
-        let response = await newUser.save();
-        return res.status(200).json( {
-            name : response.name,
-            id : response._id,
-            phone_no: response.mobile_no
-        });
+        return res.status(200).json(response);
     }catch(err){
         console.log(err.message);
         return res.status(400).json({
