@@ -3,9 +3,9 @@ const contact_model = require('../model/contacts');
 const contact_save = async(user_id, name, mobile_no) => {
     try{
         contacts = {
-            user_id,// kakka user logged in
-            name, // kakka's contact book element no 1
-            mobile_no // kakka's contact book element no 1
+            user_id,//user logged in
+            name, //user's contact book element no 1
+            mobile_no //user's contact book element no 1
         };
         contacts = await contact_model.create(contacts);
         return {
