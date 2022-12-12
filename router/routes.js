@@ -1,9 +1,9 @@
 const route = require("express").Router();
 const authorized_routes = require("./authorized_routes");
-const authorize_middleware =require("../middleware/authorize");
+const authorize_middleware =require("../../middleware/authorize");
 
-const signup = require('../controller/signup');
-const login = require('../controller/login');
+const signup = require('../../controller/signup');
+const login = require('../../controller/login');
 
 route.post("/signup", signup);
 route.post("/login", login);
